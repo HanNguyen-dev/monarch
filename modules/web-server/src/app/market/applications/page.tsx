@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import ApplicationsTableContainer from "@/app/ui/applications/applications-table-container";
+import ApplicationsTable from "@/app/ui/applications/table";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 
 export default async function Page() {
@@ -7,7 +7,7 @@ export default async function Page() {
     <div className="">
       <div className="pb-8 text-xl font-bold">Applications</div>
       <Suspense fallback={<InvoicesTableSkeleton />}>
-        <ApplicationsTableContainer />
+        <ApplicationsTable />
       </Suspense>
     </div>
   );

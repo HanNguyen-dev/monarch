@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Job } from "@/app/lib/definitions";
 import {
   Table,
   TableHeader,
@@ -14,27 +13,36 @@ import {
 
 const PAGE_SIZE = 10;
 
-export default function ApplicationsTable({
-  applications,
-}: {
-  applications: Job[];
-}) {
+export interface IColTable<T> {
+  id: keyof T;
+  header: string;
+}
+
+interface IPaginatedTable<T> {
+  columns: IColTable<T>[];
+  rows: T[];
+}
+
+export default function PaginatedTable<T>({
+  columns,
+  rows: data,
+}: IPaginatedTable<T>) {
   const [page, setPage] = useState(1);
 
-  const pages = Math.ceil(applications.length / PAGE_SIZE);
+  const pages = Math.ceil(data.length / PAGE_SIZE);
 
-  const rows = applications
+  const rows = data
     .slice(PAGE_SIZE * (page - 1), page * PAGE_SIZE)
-    .map((application) => {
+    .map((row, index) => {
       return (
-        <React.Fragment key={application.jobId}>
-          <TableRow key={application.jobId}>
-            <TableCell>{application.jobId}</TableCell>
-            <TableCell>{application.title}</TableCell>
-            <TableCell>{application.companyName}</TableCell>
-            <TableCell>{application.frontend}</TableCell>
-          </TableRow>
-        </React.Fragment>
+        <TableRow key={index}>
+          {columns.map((col, idx) => {
+            // TODO: add constraint on the Generic T
+            return (
+              <TableCell key={idx}>{row[col.id] as React.ReactNode}</TableCell>
+            );
+          })}
+        </TableRow>
       );
     });
 
@@ -56,10 +64,11 @@ export default function ApplicationsTable({
       }
     >
       <TableHeader>
-        <TableColumn>ID</TableColumn>
-        <TableColumn>TITLE</TableColumn>
-        <TableColumn>COMPANY</TableColumn>
-        <TableColumn>FRONTEND</TableColumn>
+        {columns.map((col, index) => (
+          <React.Fragment key={index}>
+            <TableColumn>{col.header}</TableColumn>
+          </React.Fragment>
+        ))}
       </TableHeader>
       <TableBody>{rows}</TableBody>
     </Table>
