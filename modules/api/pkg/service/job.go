@@ -12,7 +12,7 @@ type JobService struct {
 
 func (js *JobService) GetJobs() []domain.Job {
 	var jobs []domain.Job
-	js.repo.Db.Table(js.tableName)
+	js.repo.Db.Table(js.tableName).Find(&jobs)
 	return jobs
 }
 
