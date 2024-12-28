@@ -28,5 +28,20 @@ const columns = [
 export default async function ApplicationsTable() {
   const jobsData = await fetchJobs();
 
-  return <PaginatedTable columns={columns} rows={jobsData.jobs} />;
+  const jobs = jobsData.jobs.map((job) => {
+    return {
+      ...job,
+      title: (
+        <a
+          href={job.url}
+          target="blank"
+          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        >
+          {job.title}
+        </a>
+      ),
+    };
+  });
+
+  return <PaginatedTable columns={columns} rows={jobs} />;
 }
