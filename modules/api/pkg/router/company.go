@@ -8,9 +8,13 @@ import (
 
 func (router *router) CompanyRoute() *router {
 	router.R.GET("/companies", func(c *gin.Context) {
-		companies := companyService.GetCompanies()
+		companies, err := companyService.GetCompanies()
 
-		c.JSON(http.StatusOK, gin.H{"companies": companies})
+		if err == nil {
+			c.JSON(http.StatusOK, gin.H{"companies": companies})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"errorMessage": err.Error()})
+		}
 	})
 	return router
 }

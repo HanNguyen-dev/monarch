@@ -3,14 +3,14 @@ package domain
 import "time"
 
 type Company struct {
-	CompanyId   int    `json:"companyId"`
+	CompanyId   uint   `json:"companyId"`
 	Name        string `json:"name"`
 	Headquarter string `json:"headquarter"`
 	Industry    string `json:"industry"`
 }
 
 type Job struct {
-	JobId         int       `json:"jobId"`
+	JobId         uint      `json:"jobId"`
 	Title         string    `json:"title"`
 	Frontend      string    `json:"frontend"`
 	Backend       string    `json:"backend"`

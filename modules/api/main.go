@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	r := router.Setup().CompanyRoute().JobRoute()
+	r := router.Setup().CompanyRoute().JobRoute().IndustryRoute()
 	r.R.Run()
 }

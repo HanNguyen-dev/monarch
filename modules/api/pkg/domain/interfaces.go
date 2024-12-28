@@ -1,9 +1,13 @@
 package domain
 
 type ICompanyService interface {
-	GetCompanies() []Company
+	GetCompanies() ([]Company, error)
 }
 
 type IJobService interface {
-	GetJobs() []Job
+	GetJobs() ([]Job, error)
+}
+
+type IIndustryService interface {
+	GetIndustries() ([]IndustryEntity, error)
 }

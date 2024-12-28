@@ -8,9 +8,14 @@ import (
 
 func (router *router) JobRoute() *router {
 	router.R.GET("/jobs", func(c *gin.Context) {
-		jobs := jobService.GetJobs()
+		jobs, err := jobService.GetJobs()
 
-		c.JSON(http.StatusOK, gin.H{"jobs": jobs})
+		if err == nil {
+			c.JSON(http.StatusOK, gin.H{"jobs": jobs})
+		} else {
+			c.JSON(http.StatusInternalServerError, gin.H{"errorMessage": err.Error()})
+		}
+
 	})
 	return router
 }

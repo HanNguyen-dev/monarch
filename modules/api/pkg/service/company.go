@@ -6,19 +6,37 @@ import (
 )
 
 type CompanyService struct {
-	tableName string
-	repo      *dataaccess.Repo
+	repo *dataaccess.Repo
 }
 
-func (cs *CompanyService) GetCompanies() []domain.Company {
-	var companies []domain.Company
-	cs.repo.Db.Table(cs.tableName).Find(&companies)
-	return companies
+func (cs *CompanyService) GetCompanies() ([]domain.Company, error) {
+	var companies []domain.CompanyEntity
+	err := cs.repo.Db.Model(&domain.CompanyEntity{}).Preload("Industry").Find(&companies).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	var results []domain.Company
+
+	for _, company := range companies {
+		results = append(results, mapCompany(company))
+	}
+
+	return results, err
+}
+
+func mapCompany(ce domain.CompanyEntity) domain.Company {
+	return domain.Company{
+		CompanyId:   ce.CompanyId,
+		Name:        ce.Name,
+		Headquarter: ce.Headquarter,
+		Industry:    ce.Industry.Name,
+	}
 }
 
 func NewCompanyService() *CompanyService {
 	return &CompanyService{
-		tableName: "company",
-		repo:      dataaccess.GetInstance(),
+		repo: dataaccess.GetInstance(),
 	}
 }

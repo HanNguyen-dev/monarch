@@ -9,9 +9,10 @@ import (
 )
 
 var (
-	db                                    = make(map[string]string)
-	companyService domain.ICompanyService = service.NewCompanyService()
-	jobService     domain.IJobService     = service.NewJobService()
+	db                                      = make(map[string]string)
+	companyService  domain.ICompanyService  = service.NewCompanyService()
+	jobService      domain.IJobService      = service.NewJobService()
+	industryService domain.IIndustryService = service.NewIndustryService()
 )
 
 type router struct {
