@@ -1,0 +1,12 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "domain",
+    srcs = [
+        "entities.go",
+        "interfaces.go",
+        "models.go",
+    ],
+    importpath = "",
+    visibility = ["//visibility:public"],
+)
