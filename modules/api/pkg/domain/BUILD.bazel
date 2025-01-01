@@ -7,6 +7,6 @@ go_library(
         "interfaces.go",
         "models.go",
     ],
-    importpath = "",
+    importpath = "github.com/HanNguyen-dev/monarch/api/pkg/domain",
     visibility = ["//visibility:public"],
 )

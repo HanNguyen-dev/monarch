@@ -3,10 +3,10 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "dataaccess",
     srcs = ["common.go"],
-    importpath = "",
+    importpath = "github.com/HanNguyen-dev/monarch/api/pkg/dataaccess",
     visibility = ["//visibility:public"],
     deps = [
-        "@io_gorm_driver_postgres//:go_default_library",
-        "@io_gorm_gorm//:go_default_library",
+        "@io_gorm_driver_postgres//:postgres",
+        "@io_gorm_gorm//:gorm",
     ],
 )

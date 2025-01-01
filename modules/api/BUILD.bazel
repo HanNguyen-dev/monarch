@@ -9,6 +9,14 @@ go_library(
 
 go_binary(
     name = "api",
-    embed = [":lib"],
+    embed = [":api_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "api_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/HanNguyen-dev/monarch/api",
+    visibility = ["//visibility:private"],
+    deps = ["//modules/api/pkg/router"],
 )
