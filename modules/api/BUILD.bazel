@@ -1,3 +1,5 @@
+load("@io_bazel_rules_docker//container:container.bzl", "container_image", "container_push")
+load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
@@ -19,4 +21,26 @@ go_library(
     importpath = "github.com/HanNguyen-dev/monarch/api",
     visibility = ["//visibility:private"],
     deps = ["//modules/api/pkg/router"],
+)
+
+go_image(
+    name = "api_go_image",
+    embed = [":api_lib"],
+    goarch = "amd64",
+    goos = "linux",
+    pure = "on",
+)
+
+container_image(
+    name = "api_docker",
+    base = ":api_go_image",
+)
+
+container_push(
+    name = "api_docker_push",
+    format = "Docker",
+    image = ":api_go_image",
+    registry = "index.docker.io",
+    repository = "$(REPO_NAME)",
+    tag = "latest",
 )
