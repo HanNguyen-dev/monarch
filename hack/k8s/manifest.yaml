@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-db
+  namespace: monarch
+spec:
+  selector:
+    app: postgres-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: postgres-db-endpoint
+  namespace: monarch
+  labels:
+    kubernetes.io/service-name: postgres-db
+addressType: IPv4
+ports:
+  - port: 5432
+    name: ""
+    appProtocol: http
+    protocol: TCP
+endpoints:
+  - addresses:
+      - <ip-address>
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monarch-api
+  namespace: monarch
+spec:
+  selector:
+    matchLabels:
+      app: monarch-api
+  template:
+    metadata:
+      labels:
+        app: monarch-api
+    spec:
+      containers:
+        - name: monarch-api
+          image: <image>
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: dbuser
+              value: <user>
+            - name: dbpassword
+              value: <password>
+            - name: dbhost
+              value: <host>

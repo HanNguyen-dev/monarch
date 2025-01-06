@@ -9,10 +9,12 @@ import (
 )
 
 var (
+	dbhost     = os.Getenv("dbhost")
 	dbuser     = os.Getenv("dbuser")
 	dbpassword = os.Getenv("dbpassword")
 	dsn        = fmt.Sprintf(
-		"host=127.0.0.1 user=%s password=%s dbname=jobs port=5432 sslmode=disable TimeZone=US/Eastern",
+		"host=%s user=%s password=%s dbname=jobs port=5432 sslmode=disable TimeZone=US/Eastern",
+		dbhost,
 		dbuser,
 		dbpassword,
 	)
