@@ -2,11 +2,21 @@ package domain
 
 import "time"
 
-type Company struct {
+type BaseCompany struct {
 	CompanyId   uint   `json:"companyId"`
 	Name        string `json:"name"`
 	Headquarter string `json:"headquarter"`
-	Industry    string `json:"industry"`
+	Url         string `json:"url"`
+}
+
+type CompanyRequest struct {
+	BaseCompany
+	IndustryId uint `json:"industryId"`
+}
+
+type Company struct {
+	BaseCompany
+	Industry string `json:"industry"`
 }
 
 type Job struct {

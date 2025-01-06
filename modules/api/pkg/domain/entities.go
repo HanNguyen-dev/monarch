@@ -12,11 +12,11 @@ func (ie *IndustryEntity) TableName() string {
 }
 
 type CompanyEntity struct {
-	CompanyId   uint
+	CompanyId   uint `gorm:"primaryKey"`
 	Name        string
 	Headquarter string
 	Url         string
-	IndustryId  string
+	IndustryId  uint
 	Industry    IndustryEntity `gorm:"references:IndustryId"`
 }
 
