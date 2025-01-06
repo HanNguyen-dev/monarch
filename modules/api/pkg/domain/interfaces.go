@@ -2,6 +2,7 @@ package domain
 
 type ICompanyService interface {
 	GetCompanies() ([]Company, error)
+	AddCompany(company CompanyRequest) (string, error)
 }
 
 type IJobService interface {
