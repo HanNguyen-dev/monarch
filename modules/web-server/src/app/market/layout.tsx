@@ -1,6 +1,8 @@
 import { PropsWithChildren } from "react";
 import SideNav from "../ui/market/sidenav";
 
+export const dynamic = "force-dynamic";
+
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
