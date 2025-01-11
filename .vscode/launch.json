@@ -1,11 +1,16 @@
 {
   "configurations": [
-  {
-    "name": "Launch Package",
-    "type": "go",
-    "request": "launch",
-    "mode": "auto",
-    "program": "${workspaceFolder}/modules/api"
-  }
+    {
+      "name": "Launch Package",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/modules/api",
+      "env": {
+        "dbhost": "",
+        "dbuser": "",
+        "dbpassword": ""
+      }
+    }
   ]
 }

@@ -20,3 +20,8 @@ export type Job = {
   companyName: string;
   url: string;
 };
+
+export type Industry = {
+  industryId: number;
+  name: string;
+};

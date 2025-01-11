@@ -1,13 +1,14 @@
+import { applicationsPath, companiesPath } from "@/app/lib/constants";
 import Link from "next/link";
 
 const links = [
   {
     name: "Companies",
-    url: "/market/companies",
+    url: companiesPath,
   },
   {
     name: "Applications",
-    url: "/market/applications",
+    url: applicationsPath,
   },
 ];
 
