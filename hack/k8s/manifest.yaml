@@ -57,3 +57,69 @@ spec:
               value: <password>
             - name: dbhost
               value: <host>
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monarch-api-service
+  namespace: monarch
+spec:
+  selector:
+    app: monarch-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monarch-web-configmap
+  namespace: monarch
+data:
+  api_url: http://monarch-api-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monarch-web-server
+  namespace: monarch
+spec:
+  selector:
+    matchLabels:
+      app: monarch-web-server
+  template:
+    metadata:
+      labels:
+        app: monarch-web-server
+    spec:
+      containers:
+        - name: monarch-web-server
+          image: <image>
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+          env:
+            - name: API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: monarch-web-configmap
+                  key: api_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: monarch-web-service
+  namespace: monarch
+spec:
+  selector:
+    app: monarch-web-server
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+      nodePort: 30011
