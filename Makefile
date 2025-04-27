@@ -9,3 +9,11 @@ build-api-image:
 .PHONY: build-web-image
 build-web-image:
 	docker build modules/web-server -t monarch-web-server
+
+.PHONY: gazelle-update
+gazelle-update:
+	bazelisk run //:gazelle-update-repos
+
+.PHONY: gazelle
+gazelle:
+	bazelisk run //:gazelle
