@@ -13,6 +13,7 @@ var (
 	companyService  domain.ICompanyService  = service.NewCompanyService()
 	jobService      domain.IJobService      = service.NewJobService()
 	industryService domain.IIndustryService = service.NewIndustryService()
+	scienceService  domain.IScienceService  = service.NewScienceService()
 )
 
 type router struct {

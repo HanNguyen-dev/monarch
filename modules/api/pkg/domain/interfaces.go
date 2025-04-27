@@ -12,3 +12,7 @@ type IJobService interface {
 type IIndustryService interface {
 	GetIndustries() ([]IndustryEntity, error)
 }
+
+type IScienceService interface {
+	GetScientists() ([]Scientist, error)
+}

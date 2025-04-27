@@ -34,3 +34,10 @@ type Job struct {
 	CompanyName   string    `json:"companyName"`
 	Url           string    `json:"url"`
 }
+
+type Scientist struct {
+	ScientistId string `json:"scientistId"`
+	Name        string `json:"name"`
+	BirthYear   int    `json:"birthYear"`
+	Gender      string `json:"gender"`
+}

@@ -6,6 +6,7 @@ go_library(
         "company.go",
         "industry.go",
         "job.go",
+        "science.go",
     ],
     importpath = "github.com/HanNguyen-dev/monarch/api/pkg/service",
     visibility = ["//visibility:public"],
